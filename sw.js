@@ -25,7 +25,6 @@ self.addEventListener('message', event => {
         setTimeout(() => {
             self.registration.showNotification("¡Llegó la hora!", {
                 body: "Esta es una notificación enviada por el Service Worker.",
-                icon: "/icon.png", // Ruta a un ícono (opcional)
                 vibrate: [200, 100, 200] // Vibración en dispositivos compatibles
             });
         }, tiempoRestante);
