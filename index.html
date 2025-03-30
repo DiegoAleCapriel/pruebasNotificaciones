@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerta Persistente</title>
+    <script>
+        if (Notification.permission !== 'granted') {
+            Notification.requestPermission().then(permission => {
+                if (permission !== 'granted') {
+                    alert('Debes habilitar las notificaciones para que la alerta funcione.');
+                }
+            });
+        }
+
+        // Función para programar una alerta
+        function programarAlerta(hora, minuto) {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js').then(reg => {
+                    console.log('Service Worker registrado:', reg);
+
+                    // Envía la hora objetivo al Service Worker
+                    reg.active.postMessage({
+                        type: 'programarAlerta',
+                        hora,
+                        minuto
+                    });
+                }).catch(error => console.error('Error al registrar el Service Worker:', error));
+            } else {
+                alert("Tu navegador no soporta Service Workers.");
+            }
+        }
+
+        window.onload = () => {
+            // Programa la alerta a una hora específica (por ejemplo, 15:30)
+            programarAlerta(15, 30);
+        };
+    </script>
+</head>
+<body>
+    <h1>Alerta Persistente</h1>
+    <p>Se mostrará una alerta cuando sea exactamente las <strong>15:30</strong>, incluso si cierras la página.</p>
+</body>
+</html>
