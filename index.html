@@ -33,7 +33,9 @@
 
         window.onload = () => {
             // Programa la alerta a una hora específica (por ejemplo, 15:30)
-            programarAlerta(15, 30);
+            let hora = Number(prompt("Define la hora"));
+            let minutos = Number(prompt("Define los minutos"));
+            programarAlerta(hora, minutos);
         };
     </script>
 </head>
