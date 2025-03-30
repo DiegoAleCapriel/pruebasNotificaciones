@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alerta Persistente</title>
     <script>
-        if (Notification.permission !== 'granted') {
+        if (Notification.permission === 'granted') {
+            registration.showNotification('Tu notificación');
+        } else if (Notification.permission === 'denied') {
+            console.warn('Permiso de notificación denegado.');
+        } else {
             Notification.requestPermission().then(permission => {
-                if (permission !== 'granted') {
-                    alert('Debes habilitar las notificaciones para que la alerta funcione.');
+                if (permission === 'granted') {
+                    registration.showNotification('Tu notificación');
+                } else {
+                    console.warn('Permiso de notificación no otorgado.');
                 }
             });
         }
@@ -33,8 +39,8 @@
 
         window.onload = () => {
             // Programa la alerta a una hora específica (por ejemplo, 15:30)
-            let hora = Number(prompt("Define la hora"));
-            let minutos = Number(prompt("Define los minutos"));
+            let hora = Number(prompt("Define la hora, por favor"));
+            let minutos = Number(prompt("Define los minutos, por favor :)"));
             programarAlerta(hora, minutos);
         };
     </script>
