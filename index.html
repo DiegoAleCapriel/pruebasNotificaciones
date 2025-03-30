@@ -6,15 +6,19 @@
     <title>Alerta Persistente</title>
     <script>
         if (Notification.permission === 'granted') {
-            registration.showNotification('Tu notificación');
+            registration.showNotification('Título de Notificación', {
+    body: 'hola',
+});
         } else if (Notification.permission === 'denied') {
-            console.warn('Permiso de notificación denegado.');
+            alert('Permiso de notificación denegado.');
         } else {
             Notification.requestPermission().then(permission => {
                 if (permission === 'granted') {
-                    registration.showNotification('Tu notificación');
+                    registration.showNotification('Título de Notificación', {
+    body: 'No permitido',
+});
                 } else {
-                    console.warn('Permiso de notificación no otorgado.');
+                    alert('Permiso de notificación no otorgado.');
                 }
             });
         }
